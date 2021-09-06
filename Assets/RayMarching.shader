@@ -38,12 +38,10 @@
             uniform float3 _Object1;
 
             static const float MAX_DIST = 250;
-			static const float DIST = 10;
             static const int ITERATIONS = 1000;
 
 			float sphere(float4 s, float3 p)
             {
-				
 				return length(p - s.xyz) - s.w;
             }
 
@@ -90,10 +88,10 @@
                 return md;
             }
 
-            float getLight(float3 p, int i, float3 lightPos)
+            float getLight(float3 p)
             {
-                float3 l = normalize(lightPos - p);
-                float3 n = getNormal(p);
+				float3 l = normalize(float3(0.1, 1, 0.5));
+				float3 n = getNormal(p);
                 float dif = clamp(dot(n, l) * 0.7 + 0.5, 0, 1);
 				return dif;   
             }
@@ -108,7 +106,7 @@
                     p += rd * d;
                     if(d < 0.001)
                     {
-                        return getLight(p, i, float3(50, 100, 25));
+                        return getLight(p);
                     }
                 }
                 return 0;
